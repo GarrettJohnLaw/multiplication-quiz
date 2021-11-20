@@ -11,8 +11,12 @@
        - Array.sort()
       */
 
-     buildNewProblem();
+    //   let displayProblem;
+    //   let displayAnswers;
+    //   let problemNumber = 1;
+    //   let 
 
+     buildNewProblem();
 
       /** Functions called above
        * 
@@ -27,19 +31,20 @@
         let operatorClicked = false;
       
         //Create element to house expression in div
-        let expression = document.createElement('p');
+        // let expression = document.createElement('p');
+
 
         //Create random numbers to act as left and right sides of multiplication problem
         let left = Math.floor((Math.random() * (9 - 0) + 0));
         let right = Math.floor((Math.random() * (9 - 0) + 0));
 
         //Set correct answer equal to random numbers product
-        let correctAnswer = left * right;
+        const correctAnswer = left * right;
 
         //Write problem to created element in string format
-        expression.innerText =  left + " * " + right;
+        expression =  left + " * " + right;
         let parent = document.getElementById('problem').querySelector('.expression');
-        parent.insertAdjacentElement('beforeend', expression);
+        parent.innerText = expression;
 
         //Initialize array containing correct answers and 3 wrong answers
         let answers = [correctAnswer, getRandomNumber(), getRandomNumber(), getRandomNumber()];
@@ -73,20 +78,20 @@
             listOfAnswers.forEach(element => element.addEventListener('click', (event) => {
                 console.log(event.target.innerText)
                 console.log(correctAnswer);
+                // operatorClicked = true;
                 if(event.target.innerText == correctAnswer){
-                    operatorClicked = true;
                     event.target.setAttribute('class', 'correct-answer');
                     numberCorrect += 1;
                     problemNumber += 1;
-                    // let problem = document.getElementById('currentProblem').innerText;
-                    // problem = problemNumber.toString;
-                    // let number = document.getElementById('currentScore').innerText;
-                    // number = numberCorrect.toString;
-                    operatorClicked = false;
-                    parent.remove(expression);
+                    let problem = document.querySelector('.currentProblem');
+                    problem.innerText = problemNumber;
+                    let number = document.querySelector('.currentScore');
+                    number.innerText = numberCorrect;
+                    // operatorClicked = false;
+                    // document.getElementById('problem').querySelector('.expression').remove('p');
                     buildNewProblem();
                 }
-                else if(event.target.innerText != correctAnswer && operatorClicked) {
+                else{
                     problemNumber+=1;
                     let problem = document.getElementById('currentProblem').innerText;
                     problem = problemNumber.toString;
