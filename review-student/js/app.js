@@ -15,49 +15,82 @@
     //   let displayAnswers;
     //   let problemNumber = 1;
     //   let 
+    let problemNumber = 1;
+    let numberCorrect = 0;
+    let left;
+    let right;
+    let correctAnswer = left * right;
 
-     buildNewProblem();
+    document.addEventListener('DOMContentLoaded', () => {
+        buildNewProblem();
+        
+        let listOfAnswers = document.getElementById('answers').querySelector('ul').querySelectorAll('li');
+            listOfAnswers.forEach(element => element.addEventListener('click', (event) => {
+                problemNumber ++;
+                console.log(event.target.innerText)
+                console.log(correctAnswer);
+                // operatorClicked = true;
+                if(event.target.innerText == correctAnswer){
+                    numberCorrect += 1;
+                    let problem = document.querySelector('.currentProblem');
+                    problem.innerText = problemNumber;
+                    let number = document.querySelector('.currentScore');
+                    number.innerText = numberCorrect;
+                    // operatorClicked = false;
+                    // document.getElementById('problem').querySelector('.expression').remove('p');
+                }
+                if(event.target.innerText != correctAnswer){
+                    let problem = document.querySelector('.currentProblem');
+                    problem.innerText = problemNumber;
+                }
+                if(problemNumber <= 10){
+                buildNewProblem();
+                }
+                else{
+                    let problem = document.querySelector('.currentProblem');
+                    problem.innerText = 10;
+                    let elementsToDelete = document.querySelectorAll('.show-hide');
+                    elementsToDelete.forEach( item => item.remove());
+                }
+                }))
+
+        document.getElementById('btnStartOver').addEventListener('click', (evt) => {
+            location.reload();
+        })
+            })
+
+
+        //is click right answer
+        //adjust score/problem number
 
       /** Functions called above
        * 
        * 
        */
-
-      let problemNumber = 1;
-      let numberCorrect = 0;
     
 
        function buildNewProblem() {
-        let operatorClicked = false;
-      
-        //Create element to house expression in div
-        // let expression = document.createElement('p');
+        left = Math.floor((Math.random() * (9 - 0) + 0));
+        right = Math.floor((Math.random() * (9 - 0) + 0));
 
+        correctAnswer = left * right;
+        console.log(correctAnswer);
 
-        //Create random numbers to act as left and right sides of multiplication problem
-        let left = Math.floor((Math.random() * (9 - 0) + 0));
-        let right = Math.floor((Math.random() * (9 - 0) + 0));
-
-        //Set correct answer equal to random numbers product
-        const correctAnswer = left * right;
-
-        //Write problem to created element in string format
         expression =  left + " * " + right;
         let parent = document.getElementById('problem').querySelector('.expression');
         parent.innerText = expression;
 
-        //Initialize array containing correct answers and 3 wrong answers
         let answers = [correctAnswer, getRandomNumber(), getRandomNumber(), getRandomNumber()];
+        console.log(correctAnswer);
 
-        //Randomize order of possible answers in array
         let array = shuffleArray(answers);
 
-        //Write answers from array to four li elements which IDs were created for
         for (let i=0; i<array.length; i++){
     
             while(array[i] === array[i+1] || array[i] === array[i+2] || array[i] === array[i+3]){
                 //Do something (this is a stupid way to do this)
-                array = createAnswerArray();
+                answers = [correctAnswer, getRandomNumber(), getRandomNumber(), getRandomNumber()];
+                array = shuffleArray(answers);
             }
             if (i === 0){
                 let firstLi = document.getElementById('one');
@@ -73,47 +106,50 @@
                 fourthLi.innerText = array[3]; 
             } else return null;
         }
+    }
 
-            let listOfAnswers = document.getElementById('answers').querySelector('ul').querySelectorAll('li');
-            listOfAnswers.forEach(element => element.addEventListener('click', (event) => {
-                console.log(event.target.innerText)
-                console.log(correctAnswer);
-                // operatorClicked = true;
-                if(event.target.innerText == correctAnswer){
-                    event.target.setAttribute('class', 'correct-answer');
-                    numberCorrect += 1;
-                    problemNumber += 1;
-                    let problem = document.querySelector('.currentProblem');
-                    problem.innerText = problemNumber;
-                    let number = document.querySelector('.currentScore');
-                    number.innerText = numberCorrect;
-                    // operatorClicked = false;
-                    // document.getElementById('problem').querySelector('.expression').remove('p');
-                    buildNewProblem();
-                }
-                else{
-                    problemNumber+=1;
-                    let problem = document.getElementById('currentProblem').innerText;
-                    problem = problemNumber.toString;
-                    buildNewProblem();
-                    }
+        //     let listOfAnswers = document.getElementById('answers').querySelector('ul').querySelectorAll('li');
+        //     listOfAnswers.forEach(element => element.addEventListener('click', (event) => {
+        //         console.log(event.target.innerText)
+        //         console.log(correctAnswer);
+        //         // operatorClicked = true;
+        //         if(event.target.innerText == correctAnswer){
+        //             operatorClicked = true;
+        //             event.target.setAttribute('class', 'correct-answer');
+        //             numberCorrect += 1;
+        //             problemNumber += 1;
+        //             let problem = document.querySelector('.currentProblem');
+        //             problem.innerText = problemNumber;
+        //             let number = document.querySelector('.currentScore');
+        //             number.innerText = numberCorrect;
+        //             // operatorClicked = false;
+        //             // document.getElementById('problem').querySelector('.expression').remove('p');
+        //             buildNewProblem();
+        //         }
+        //         if(event.target.innerText != correctAnswer){
+        //             operatorClicked = true;
+        //             problemNumber+=1;
+        //             let problem = document.querySelector('.currentProblem');
+        //             problem.innerText = problemNumber;
+        //             buildNewProblem();
+        //         }
                 
-            }))
-            
-        }
+        //     }))
+        // }
+        
 
-        /**
-         *  @param {Event} event 
-         * */
-function clickNumber(event) {
-    event.target.setAttribute('class', 'correct-answer');
-  if( operatorClicked ) {
-    display.value = val;
-    operatorClicked = false;
-  } else {
-    display.value == 0 ? display.value = val : display.value += val;
-  }
-}
+//         /**
+// //          *  @param {Event} event 
+// //          * */
+// function clickNumber(event) {
+//     event.target.setAttribute('class', 'correct-answer');
+//   if( operatorClicked ) {
+//     display.value = val;
+//     operatorClicked = false;
+//   } else {
+//     display.value == 0 ? display.value = val : display.value += val;
+//   }
+// }
 
     // function gamePlay(){
     //     let problemNumber = 1;
@@ -145,14 +181,14 @@ function clickNumber(event) {
         return arr.sort(function (a, b) { return Math.random() - 0.5 })
       }
 
-      function createAnswerArray(){
-           //Initialize array containing correct answers and 3 wrong answers
-        let answers = [correctAnswer, getRandomNumber(), getRandomNumber(), getRandomNumber()];
+    //   function createAnswerArray(){
+    //        //Initialize array containing correct answers and 3 wrong answers
+    //     let answers = [correctAnswer, getRandomNumber(), getRandomNumber(), getRandomNumber()];
 
-        //Randomize order of possible answers in array
-        let array = shuffleArray(answers);
-        return array;
-      }
+    //     //Randomize order of possible answers in array
+    //     let array = shuffleArray(answers);
+    //     return array;
+    //   }
 
     //   function displayAnswer(answer) {
     //     let li = document.getElementById('answers').querySelector()
