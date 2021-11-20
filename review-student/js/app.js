@@ -21,8 +21,10 @@
 
       let problemNumber = 1;
       let numberCorrect = 0;
+    
 
        function buildNewProblem() {
+        let operatorClicked = false;
       
         //Create element to house expression in div
         let expression = document.createElement('p');
@@ -70,24 +72,43 @@
             let listOfAnswers = document.getElementById('answers').querySelector('ul').querySelectorAll('li');
             listOfAnswers.forEach(element => element.addEventListener('click', (event) => {
                 console.log(event.target.innerText)
+                console.log(correctAnswer);
                 if(event.target.innerText == correctAnswer){
+                    operatorClicked = true;
                     event.target.setAttribute('class', 'correct-answer');
                     numberCorrect += 1;
                     problemNumber += 1;
-                    let problem = document.getElementById('currentProblem').innerText;
-                    problem = problemNumber.toString;
-                    let number = document.getElementById('currentScore').innerText;
-                    number = numberCorrect.toString;
+                    // let problem = document.getElementById('currentProblem').innerText;
+                    // problem = problemNumber.toString;
+                    // let number = document.getElementById('currentScore').innerText;
+                    // number = numberCorrect.toString;
+                    operatorClicked = false;
+                    parent.remove(expression);
+                    buildNewProblem();
                 }
-                else {
+                else if(event.target.innerText != correctAnswer && operatorClicked) {
                     problemNumber+=1;
                     let problem = document.getElementById('currentProblem').innerText;
                     problem = problemNumber.toString;
-                    
-                }
+                    buildNewProblem();
+                    }
+                
             }))
-            // buildNewProblem();
+            
         }
+
+        /**
+         *  @param {Event} event 
+         * */
+function clickNumber(event) {
+    event.target.setAttribute('class', 'correct-answer');
+  if( operatorClicked ) {
+    display.value = val;
+    operatorClicked = false;
+  } else {
+    display.value == 0 ? display.value = val : display.value += val;
+  }
+}
 
     // function gamePlay(){
     //     let problemNumber = 1;
