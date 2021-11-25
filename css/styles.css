@@ -57,7 +57,7 @@ button {
   }
 
   header {
-    width: 100vw
+    width: 95vw
   }
   header h1 {
     font-size: 3em;
@@ -66,7 +66,7 @@ button {
     font-size: 1em;
   }
   main {
-    width: 95vw;
+    width: 90vw;
   }
   footer {
     width: 95vw;
