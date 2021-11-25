@@ -57,13 +57,18 @@ button {
   }
 
   header {
-    width: 95vw
+    width: 90vw
   }
+
   header h1 {
     font-size: 3em;
+    width: 90vw;
   }
   header p {
     font-size: 1em;
+    width: 80vw;
+    margin: auto;
+    padding-bottom: 5px;
   }
   main {
     width: 90vw;
