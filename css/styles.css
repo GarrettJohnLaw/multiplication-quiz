@@ -53,7 +53,7 @@ button {
 @media only screen and (max-width: 600px) {
   body {
     width: 95vw;
-    max-height: 100vw;
+    max-height: 95vw;
   }
 
   header {
